@@ -4,7 +4,7 @@ set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
+set nowrap
 set nobackup
 set nowritebackup
 set history=50		" keep 50 lines of command line history
@@ -66,9 +66,9 @@ endif " has("autocmd")
   " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " endif
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
+" Softtabs, 4 spaces
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
 " Always display the status line
