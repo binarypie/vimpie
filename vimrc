@@ -174,3 +174,8 @@ let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " Window navigation
 nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
+
+" Gui Stuff for macvim
+if has("gui_running")
+    set guioptions=begmrt
+endif
