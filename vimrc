@@ -11,6 +11,7 @@ set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
+set modelines=0
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -179,3 +180,24 @@ nmap <C-K> <C-W><C-K>
 if has("gui_running")
     set guioptions=begmrt
 endif
+
+" Remaps
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk" 
+
+" Invisibles
+set list
+set listchars=tab:▸\ ,eol:¬
+
+" Beeping
+set noerrorbells
+set visualbell
+set t_vb=
