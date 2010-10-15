@@ -122,10 +122,6 @@ vmap P p :call setreg('"', getreg('0')) <CR>
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
-" Edit routes
-command! Rroutes :e config/routes.rb
-command! RTroutes :tabe config/routes.rb
-
 " Local config
 if filereadable(".vimrc.local")
   source .vimrc.local
