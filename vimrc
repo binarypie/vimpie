@@ -1,11 +1,7 @@
 set nocompatible
 
+" Encoding and Filetypes
 set encoding=utf8
-try
-    lang en_US
-catch
-endtry
-
 set ffs=unix,dos,mac "Default file types
 
 " allow backspacing over everything in insert mode
@@ -18,13 +14,10 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 set modelines=0
+set hidden
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
-
-" This is an alternative that also works in block mode, but the deleted
-" text is lost and it only works for putting the current register.
-"vnoremap p "_dp
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -35,20 +28,16 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
-
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
-
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -56,15 +45,10 @@ if has("autocmd")
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
   augroup END
-
 else
-
-  set autoindent		" always set autoindenting on
-
-endif " has("autocmd")
-
+  set autoindent
+endif
 
 " Softtabs, 4 spaces
 set tabstop=4
@@ -74,13 +58,12 @@ set expandtab
 " Always display the status line
 set laststatus=2
 
-" \ is the leader character
-let mapleader = "\\"
+" , is the leader character
+let mapleader = ","
 
 " Leader shortcuts for CommandT
-map <Leader>ct :CommandT
+map <Leader>ct :CommandT<cr>
 let g:CommandTMaxHeight = 15
-set wildignore+=*.o,*.obj,.git,*.pyc
 noremap <leader>j :CommandT<cr>
 noremap <leader>y :CommandTFlush<cr>
 
@@ -106,7 +89,6 @@ imap <Tab> <C-P>
 " Visual mode: D
 vmap D y'>p
 
-
 " No Help, please
 nmap <F1> <Esc>
 
@@ -116,9 +98,6 @@ imap <C-F> <C-R>=expand("%")<CR>
 " Press Shift+P while in visual mode to replace the selection without
 " overwriting the default register
 vmap P p :call setreg('"', getreg('0')) <CR>
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·
 
 " Local config
 if filereadable(".vimrc.local")
@@ -144,6 +123,7 @@ let g:snippetsEmu_key = "<S-Tab>"
 
 " Tab completion options
 set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.pyc
 set complete=.,t
 
 " Tags
@@ -158,7 +138,7 @@ if has("gui_running")
     set guioptions=begmrt
 endif
 
-" Remaps
+" Disable Arrow Remaps
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
@@ -172,9 +152,9 @@ nnoremap k gk"
 
 " Invisibles
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,trail:·
 
-" Beeping
+" Disable Beeping
 set noerrorbells
 set visualbell
 set t_vb=
