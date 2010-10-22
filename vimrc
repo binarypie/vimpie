@@ -106,8 +106,6 @@ imap <Tab> <C-P>
 " Visual mode: D
 vmap D y'>p
 
-" For Haml
-au! BufRead,BufNewFile *.haml         setfiletype haml
 
 " No Help, please
 nmap <F1> <Esc>
@@ -180,3 +178,6 @@ set listchars=tab:▸\ ,eol:¬
 set noerrorbells
 set visualbell
 set t_vb=
+
+" Font
+set guifont=Monaco:h12.00
