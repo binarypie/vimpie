@@ -78,9 +78,6 @@ set laststatus=2
 " \ is the leader character
 let mapleader = "\\"
 
-" Edit the README_FOR_APP (makes :R commands work)
-map <Leader>R :e doc/README_FOR_APP<CR>
-
 " Leader shortcuts for CommandT
 map <Leader>ct :CommandT
 
