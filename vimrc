@@ -1,6 +1,12 @@
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
 set nocompatible
+
+set encoding=utf8
+try
+    lang en_US
+catch
+endtry
+
+set ffs=unix,dos,mac "Default file types
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -59,13 +65,6 @@ else
 
 endif " has("autocmd")
 
-" if has("folding")
-  " set foldenable
-  " set foldmethod=syntax
-  " set foldlevel=1
-  " set foldnestmax=2
-  " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-" endif
 
 " Softtabs, 4 spaces
 set tabstop=4
@@ -80,6 +79,10 @@ let mapleader = "\\"
 
 " Leader shortcuts for CommandT
 map <Leader>ct :CommandT
+let g:CommandTMaxHeight = 15
+set wildignore+=*.o,*.obj,.git,*.pyc
+noremap <leader>j :CommandT<cr>
+noremap <leader>y :CommandTFlush<cr>
 
 " Hide search highlighting
 map <Leader>l :set invhls <CR>
