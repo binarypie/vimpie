@@ -110,9 +110,9 @@ if executable("ack")
 endif
 
 " Color scheme
-colorscheme candypie
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
+colorscheme ir_black
+" highlight NonText guibg=#060606
+" highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
 " Numbers
 set number
@@ -161,3 +161,9 @@ set t_vb=
 
 " Font
 set guifont=Monaco:h12.00
+
+" Comments
+noremap <silent> ,# :call CommentLineToEnd('# ')<CR>+
+noremap <silent> ,* :call CommentLinePincer('/* ', ' */')<CR>+
+noremap <silent> ,/ :call CommentLineToEnd('// ')<CR>+
+noremap <silent> ," :call CommentLineToEnd('" ')<CR>+
