@@ -62,7 +62,6 @@ set laststatus=2
 let mapleader = ","
 
 " Leader shortcuts for CommandT
-map <Leader>ct :CommandT<cr>
 let g:CommandTMaxHeight = 15
 noremap <leader>j :CommandT<cr>
 noremap <leader>y :CommandTFlush<cr>
@@ -161,9 +160,3 @@ set t_vb=
 
 " Font
 set guifont=Monaco:h12.00
-
-" Comments
-noremap <silent> ,# :call CommentLineToEnd('# ')<CR>+
-noremap <silent> ,* :call CommentLinePincer('/* ', ' */')<CR>+
-noremap <silent> ,/ :call CommentLineToEnd('// ')<CR>+
-noremap <silent> ," :call CommentLineToEnd('" ')<CR>+
