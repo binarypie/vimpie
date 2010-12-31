@@ -1,0 +1,132 @@
+*simple_comments.txt*      simple_comments help                       2010-12-31
+==============================================================================
+Author:  Anders Thøgersen <anders [at] bladre.dk>
+Version: 1.2
+==============================================================================
+1. Intro                                                 *simple_comments-intro*
+
+   This is a plugin to comment out or remove comments from lines in sourcecode
+   using the |commentsring| variable. It is intended to be as simple as
+   possible and can only handle the commenting/uncommenting of whole lines.
+
+   A dictionary of different comment types may be specified for files that can
+   contain several languages such as html.
+   
+   Note that only a single comment type is handled for each language so
+   languages such with several different comment types are not handled.
+
+   For filetypes where the commentstring setting is incorrect it can be
+   changed by editing ftplugin/<filetype>.vim and adding a line such as
+
+        setlocal commentstring=/*\ %s\ */
+
+   This specifies a C comment.  Spaces in the |commentstring| setting must be
+   escaped. 
+
+==============================================================================
+2. Setup                                               *simple_comments-mapping*
+
+   The default key mappings for this plugin are:
+
+     <M-x> Add comments to the current line, a visual selection or range.
+     <M-z> Remove comments from current line, range or visual selection.
+
+   The mappings can be changed.  See |simple_comments-customizing|. 
+
+==============================================================================
+3. Customizing                                     *simple_comments-customizing*
+
+   The following variables can be used to customize this plugin:
+
+     |g:simple_comments_Comment|
+     |g:simple_comments_Remove|
+     |g:simple_comments_LeftPlaceHolder|
+     |g:simple_comments_RightPlaceHolder|
+     |g:simple_comments_SyntaxDictionary|
+
+------------------------------------------------------------------------------
+                                                     *g:simple_comments_Comment*
+
+   Specifies the mapping to use to comment out a line.  It can be changed using
+   the following:
+
+     let g:simple_comments_Comment = '<M-x>'
+
+------------------------------------------------------------------------------
+                                                      *g:simple_comments_Remove*
+
+   Specifies the mapping to use to remove comments from a line.  It can be
+   changed using the following:
+
+     let g:simple_comments_Remove = '<M-z>'
+
+------------------------------------------------------------------------------
+                                             *g:simple_comments_LeftPlaceHolder*
+                                            *g:simple_comments_RightPlaceHolder*
+
+   If the commentsring contains a left and a right side, adding comments to a
+   line that already contains comments will cause the original comments to be
+   replaced with the contents of these variables.  Example:
+   
+     Commenting the line
+   
+       /* int i = 0; */
+   
+     Will result in
+   
+       /* [> int i = 0; <] */
+   
+   When uncommenting the line again the original comments will be restored.
+   Default settings are:
+   
+     let g:simple_comments_LeftPlaceHolder = '[>'
+     let g:simple_comments_RightPlaceHolder = '<]'
+   
+------------------------------------------------------------------------------
+                                            *g:simple_comments_SyntaxDictionary*
+
+   If editing a file that contains different languages using different types
+   of comments, the language specific comments can be specified in this
+   dictionary.
+   
+   The |commentstring| will be used as usual if there is no entry for the
+   current |filetype| in this dictionary.  Note that if the filetype exists in
+   the dictionary comments for the current filetype must also be specified in
+   the dictionary.
+   
+   A useful setting for editing html files:
+   
+       let www = {'html': '<!-- %s -->', 'css': '// %s', 'java': '// %s' } 
+       let g:simple_comments_SyntaxDictionary = {'html': www, 'xhtml':www }
+   
+   To decide which comments to use for a line the first _lower case_ characters
+   of the |synIDattr| name is used.  In the above www variable 'java' denotes 
+   the javascript comment because synIDattr returns javaScript.
+   
+   To find out what these characters are the following command can be used:
+
+      :echo synIDattr(synID(line("."), col("."), 0), "name")
+
+==============================================================================
+4. History
+
+1.2   add: Updated documentation.
+
+1.1   fix: Better version numbers. Use of GetLatestVimScripts.
+
+v253  fix: Variable names and autocommands, vim7 needed
+      add: commenting according to syntax in current line to handle files with
+           different languages such as html + javascript.  User must specify a
+           Dictionary containing alternative languages.
+
+v249  fix: s:left and friends changed to b:left, ... doh!
+      fix: Preserve space on left hand side of the commented line and handle
+           commentstrings with space nicely
+      fix: renamed buffer variables to better names
+
+v243  Initial version
+
+==============================================================================
+$Id$
+==============================================================================
+vim:tw=78:ft=help
