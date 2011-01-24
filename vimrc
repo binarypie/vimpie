@@ -1,5 +1,9 @@
 set nocompatible
 
+filetype off
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
 " Encoding and Filetypes
 set encoding=utf8
 set ffs=unix,dos,mac "Default file types
