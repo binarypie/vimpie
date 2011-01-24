@@ -54,6 +54,7 @@ endif
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set smartindent
 
 " Always display the status line
 set laststatus=2
@@ -110,8 +111,6 @@ endif
 
 " Color scheme
 colorscheme ir_black
-" highlight NonText guibg=#060606
-" highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
 " Numbers
 set number
