@@ -16,7 +16,7 @@ git_bundles = [
     "git://github.com/vim-scripts/python.vim--Vasiliev.git",
     "git://github.com/paulyg/Vim-PHP-Stuff.git",
     "git://github.com/skwp/greplace.vim.git",
-    "https://github.com/vim-scripts/Gist.vim",
+    "https://github.com/vim-scripts/Gist.vim.git",
     "git://github.com/vim-scripts/go.vim.git"
 ]
 
