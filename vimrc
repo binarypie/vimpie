@@ -60,6 +60,12 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+" Ident Lines
+colorscheme ir_black
+set ts=4 sw=4 et
+let g:indent_guides_start level = 2
+let g:indent_guides_guide_size = 1
+
 " Always display the status line
 set laststatus=2
 
