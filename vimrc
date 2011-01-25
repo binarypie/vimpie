@@ -1,8 +1,9 @@
 set nocompatible
 
 filetype off
-call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+filetype plugin indent on
 
 " Encoding and Filetypes
 set encoding=utf8
@@ -61,9 +62,7 @@ set expandtab
 set smartindent
 
 " Ident Lines
-colorscheme ir_black
 set ts=4 sw=4 et
-let g:indent_guides_start level = 2
 let g:indent_guides_guide_size = 1
 
 " Always display the status line
@@ -126,16 +125,10 @@ colorscheme ir_black
 set number
 set numberwidth=5
 
-" Snippets are activated by Shift+Tab
-let g:snippetsEmu_key = "<S-Tab>"
-
 " Tab completion options
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.pyc
 set complete=.,t
-
-" Tags
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
 " Window navigation
 nmap <C-J> <C-W><C-J>
