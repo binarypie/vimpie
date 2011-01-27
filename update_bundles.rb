@@ -17,37 +17,30 @@ git_bundles = [
     "git://github.com/paulyg/Vim-PHP-Stuff.git",
     "git://github.com/skwp/greplace.vim.git",
     "https://github.com/vim-scripts/Gist.vim.git",
-    "git://github.com/vim-scripts/go.vim.git"
-]
-
-vim_org_scripts = [
+    "git://github.com/vim-scripts/go.vim.git",
+    "git://github.com/ervandew/supertab.git"
 ]
 
 require 'fileutils'
-require 'open-uri'
+
+puts "Starting..."
 
 bundles_dir = File.join(File.dirname(__FILE__), "vim/bundle")
 FileUtils.cd(bundles_dir)
 
-puts "Trashing everything (lookout!)"
+puts "      Emptying Bundle Directory!"
 Dir["*"].each {|d| FileUtils.rm_rf d }
 
 git_bundles.each do |url|
   dir = url.split('/').last.sub(/\.git$/, '')
-  puts "  Unpacking #{url} into #{dir}"
+  puts "    Downloading #{dir}"
   `git clone #{url} #{dir}`
   FileUtils.rm_rf(File.join(dir, ".git"))
 end
 
-vim_org_scripts.each do |name, script_id, script_type|
-  puts "  Downloading #{name}"
-  local_file = File.join(name, script_type, "#{name}.vim")
-  FileUtils.mkdir_p(File.dirname(local_file))
-  File.open(local_file, "w") do |file|
-    file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
-  end
-end
-
+puts "      Building Command-T"
 commandt_dir = File.join(File.dirname(__FILE__), "command-t")
 FileUtils.cd(commandt_dir)
 `rake make`
+
+puts "Finished!"
