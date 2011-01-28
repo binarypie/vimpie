@@ -18,7 +18,9 @@ git_bundles = [
     "git://github.com/skwp/greplace.vim.git",
     "https://github.com/vim-scripts/Gist.vim.git",
     "git://github.com/vim-scripts/go.vim.git",
-    "git://github.com/ervandew/supertab.git"
+    "git://github.com/ervandew/supertab.git",
+    "git://github.com/vim-scripts/taglist.vim.git",
+    "git://github.com/scrooloose/syntastic.git"
 ]
 
 require 'fileutils'
