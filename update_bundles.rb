@@ -20,7 +20,8 @@ git_bundles = [
     "git://github.com/vim-scripts/go.vim.git",
     "git://github.com/ervandew/supertab.git",
     "git://github.com/vim-scripts/taglist.vim.git",
-    "git://github.com/scrooloose/syntastic.git"
+    "git://github.com/scrooloose/syntastic.git",
+    "git://github.com/briangershon/html5.vim.git"
 ]
 
 require 'fileutils'
@@ -30,17 +31,17 @@ puts "Starting..."
 bundles_dir = File.join(File.dirname(__FILE__), "vim/bundle")
 FileUtils.cd(bundles_dir)
 
-puts "      Emptying Bundle Directory!"
+puts "        Emptying Bundle Directory!"
 Dir["*"].each {|d| FileUtils.rm_rf d }
 
 git_bundles.each do |url|
   dir = url.split('/').last.sub(/\.git$/, '')
-  puts "    Downloading #{dir}"
+  puts "        Downloading #{dir}"
   `git clone #{url} #{dir}`
   FileUtils.rm_rf(File.join(dir, ".git"))
 end
 
-puts "      Building Command-T"
+puts "        Building Command-T"
 commandt_dir = File.join(File.dirname(__FILE__), "command-t")
 FileUtils.cd(commandt_dir)
 `rake make`
