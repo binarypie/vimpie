@@ -21,7 +21,8 @@ git_bundles = [
     "git://github.com/ervandew/supertab.git",
     "git://github.com/vim-scripts/taglist.vim.git",
     "git://github.com/scrooloose/syntastic.git",
-    "git://github.com/briangershon/html5.vim.git"
+    "git://github.com/briangershon/html5.vim.git",
+    "git://github.com/fmoralesc/Tumble.git"
 ]
 
 require 'fileutils'
