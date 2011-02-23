@@ -16,13 +16,14 @@ git_bundles = [
     "git://github.com/vim-scripts/python.vim--Vasiliev.git",
     "git://github.com/paulyg/Vim-PHP-Stuff.git",
     "git://github.com/skwp/greplace.vim.git",
-    "https://github.com/vim-scripts/Gist.vim.git",
+    "git://github.com/vim-scripts/Gist.vim.git",
     "git://github.com/vim-scripts/go.vim.git",
     "git://github.com/ervandew/supertab.git",
     "git://github.com/vim-scripts/taglist.vim.git",
     "git://github.com/scrooloose/syntastic.git",
     "git://github.com/briangershon/html5.vim.git",
-    "git://github.com/fmoralesc/Tumble.git"
+    "git://github.com/fmoralesc/Tumble.git",
+    "git://github.com/vim-scripts/greplace.vim.git"
 ]
 
 require 'fileutils'
