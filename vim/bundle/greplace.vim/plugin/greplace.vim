@@ -221,7 +221,7 @@ endfunction
 " gSearch
 " Search for a pattern in a group of files using ':grep'
 function! s:gSearch(type, ...)
-    let grep_opt  = '-r'
+    let grep_opt  = ''
     let pattern   = ''
     let filenames = ''
 
@@ -294,7 +294,7 @@ function! s:gSearch(type, ...)
     let grep_cmd = 'grep! ' . grep_opt . ' ' . pattern . ' ' . filenames
 
     " Run the grep and get the matches
-    silent! exe grep_cmd
+    exe grep_cmd
 
     call s:gReplace_show_matches()
 endfunction

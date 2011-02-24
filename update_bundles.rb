@@ -15,7 +15,6 @@ git_bundles = [
     "git://github.com/pangloss/vim-javascript.git",
     "git://github.com/vim-scripts/python.vim--Vasiliev.git",
     "git://github.com/paulyg/Vim-PHP-Stuff.git",
-    "git://github.com/skwp/greplace.vim.git",
     "git://github.com/vim-scripts/Gist.vim.git",
     "git://github.com/vim-scripts/go.vim.git",
     "git://github.com/ervandew/supertab.git",
