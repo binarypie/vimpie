@@ -19,11 +19,6 @@ let g:extradite_bufnr = -1
 
 function! s:Extradite(bang) abort
 
-  if !exists('b:git_dir')
-    echo 'Current buffer is not under git version control.'
-    return
-  endif
-
   " if we are open, close.
   if g:extradite_bufnr >= 0
     call <SID>ExtraditeClose()
@@ -40,8 +35,7 @@ function! s:Extradite(bang) abort
     call s:ExtraditeLoadCommitData(a:bang, base_file_name, template_cmd, path)
     let b:base_file_name = base_file_name
     let b:git_dir = git_dir
-    let b:fugitive_type = 'log'
-    let b:fugitive_logged_bufnr = bufnr
+    let b:extradite_logged_bufnr = bufnr
     exe 'vertical resize '.g:extradite_width
     command! -buffer -bang Extradite :execute s:Extradite(<bang>0)
     " invoke ExtraditeClose instead of bdelete so we can do the necessary cleanup
@@ -56,10 +50,22 @@ function! s:Extradite(bang) abort
     " doesn't seem to work
     nnoremap <buffer> <silent> t    :let line=line('.')<cr> :<C-U>exe <SID>ExtraditeDiffToggle()<CR> :exe line<cr>
     autocmd CursorMoved <buffer>    exe 'setlocal statusline='.escape(b:extradata_list[line(".")-1]['date'], ' ')
+    " cd to git repo so system() calls to git work
+    let b:cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
+    let b:stashed_autochdir = &autochdir
+    set noautochdir
+    let b:stashed_dir = getcwd()
+    let b:git_tree_dir = fugitive#buffer().repo().tree()
+    execute b:cd.' '.b:git_tree_dir
+    autocmd BufEnter <buffer>       exe b:cd.' '.b:git_tree_dir
+    autocmd BufLeave <buffer>       exe b:cd.' '.getbufvar('<afile>','stashed_dir')
+    autocmd BufEnter <buffer>       call s:ExtraditeSyntax()
+    autocmd BufLeave <buffer>       hi! link CursorLine NONE
+    autocmd BufLeave <buffer>       hi! link Cursor NONE
     call s:ExtraditeDiffToggle()
     let g:extradite_bufnr = bufnr('')
     return ''
-  catch /^fugitive:/
+  catch /^extradite:/
     return 'echoerr v:errmsg'
   endtry
 endfunction
@@ -72,46 +78,48 @@ function! s:ExtraditeLoadCommitData(bang, base_file_name, template_cmd, ...) abo
   endif
 
   let cmd = a:template_cmd + ['--pretty=format:\%an	\%d	\%s', '--', path]
-  let extradata_cmd = a:template_cmd + ['--pretty=format:\%h	\%ad', '--', path]
   let basecmd = call(fugitive#buffer().repo().git_command,cmd,fugitive#buffer().repo())
+  let extradata_cmd = a:template_cmd + ['--pretty=format:%h	%ad', '--', path]
   let extradata_basecmd = call(fugitive#buffer().repo().git_command,extradata_cmd,fugitive#buffer().repo())
 
   let log_file = a:base_file_name.'.extradite'
   " put the commit IDs in a separate file -- the user doesn't have to know
   " exactly what they are
-  let extradata_file = a:base_file_name.'.extraditecommits'
   if &shell =~# 'csh'
-    silent! execute '%write !('.extradata_basecmd.' > '.extradata_file.') >& '.a:base_file_name
     silent! execute '%write !('.basecmd.' > '.log_file.') >& '.a:base_file_name
   else
-    silent! execute '%write !'.extradata_basecmd.' > '.extradata_file.' 2> '.a:base_file_name
     silent! execute '%write !'.basecmd.' > '.log_file.' 2> '.a:base_file_name
   endif
   if v:shell_error
-    call s:throw(join(readfile(error),"\n"))
+    let v:errmsg = 'extradite: '.join(readfile(a:base_file_name),"\n")
+    throw v:errmsg
   endif
 
   if g:extradite_bufnr >= 0
     edit
   else
     if a:bang
-      exe 'leftabove vsplit '.log_file
+      exe 'keepjumps leftabove vsplit '.log_file
     else
-      exe 'edit' log_file
+      exe 'keepjumps edit' log_file
     endif
   endif
 
-  " Some components of the log may have no value. Or may insert whitespace of their own. Remove the repeated
-  " whitespace that result from this. Side effect: removes intended whitespace in the commit data.
-  setlocal modifiable
-  silent! %s/\(\s\)\s\+/\1/g
-  normal! gg
+  " this must happen after we create the Extradite buffer so that
+  " b:extradata_list gets placed in the right buffer
+  let extradata_str = system(extradata_basecmd)
+  let extradata = split(extradata_str, '\n')
   let b:extradata_list = []
-  let extradata = readfile(extradata_file)
   for line in extradata
     let tokens = matchlist(line, '\([^\t]\+\)\t\([^\t]\+\)')
     call add(b:extradata_list, {'commit': tokens[1], 'date': tokens[2]})
   endfor
+
+  " Some components of the log may have no value. Or may insert whitespace of their own. Remove the repeated
+  " whitespace that result from this. Side effect: removes intended whitespace in the commit data.
+  setlocal modifiable
+    silent! keepjumps %s/\(\s\)\s\+/\1/g
+    keepjumps normal! gg
   setlocal nomodified nomodifiable bufhidden=delete nonumber nowrap foldcolumn=0 nofoldenable filetype=extradite ts=1 cursorline nobuflisted so=0
 endfunction
 
@@ -122,7 +130,7 @@ function! s:ExtraditePath(...) abort
   else
     let modifier = ''
   endif
-  return b:extradata_list[line(".")-1]['commit'].modifier.':'.fugitive#buffer(b:fugitive_logged_bufnr).path()
+  return b:extradata_list[line(".")-1]['commit'].modifier.':'.fugitive#buffer(b:extradite_logged_bufnr).path()
 endfunction
 
 " Closes the file log and returns the selected `commit:path`
@@ -130,20 +138,21 @@ function! s:ExtraditeClose() abort
 
   if (g:extradite_bufnr >= 0)
     let filelog_winnr = bufwinnr(g:extradite_bufnr)
-    exe filelog_winnr.'wincmd w'
+    exe 'keepjumps '.filelog_winnr.'wincmd w'
   else
     return
   endif
 
   let rev = s:ExtraditePath()
-  let fugitive_logged_bufnr = b:fugitive_logged_bufnr
-  if exists('b:fugitive_simplediff_bufnr') && bufwinnr(b:fugitive_simplediff_bufnr) >= 0
-    exe 'bd!' . b:fugitive_simplediff_bufnr
+  let extradite_logged_bufnr = b:extradite_logged_bufnr
+  if exists('b:extradite_simplediff_bufnr') && bufwinnr(b:extradite_simplediff_bufnr) >= 0
+    exe 'keepjumps bd!' . b:extradite_simplediff_bufnr
   endif
-  bd
-  let logged_winnr = bufwinnr(fugitive_logged_bufnr)
+  exe 'set '.(b:stashed_autochdir ? '' : 'no').'autochdir'
+  keepjumps bd
+  let logged_winnr = bufwinnr(extradite_logged_bufnr)
   if logged_winnr >= 0
-    exe logged_winnr.'wincmd w'
+    exe 'keepjumps '.logged_winnr.'wincmd w'
   endif
   let g:extradite_bufnr = -1
   return rev
@@ -166,17 +175,17 @@ endfunction
 
 function! s:ExtraditeSyntax() abort
   let b:current_syntax = 'extradite'
-  syn match FugitivelogName "\(\w\| \)\+\t"
-  syn match FugitivelogTag "(.*)\t"
-  hi def link FugitivelogName       String
-  hi def link FugitivelogTag        Identifier
-  hi! def link CursorLine           Visual
+  syn match ExtraditeLogName "\(\w\| \)\+\t"
+  syn match ExtraditeLogTag "(.*)\t"
+  hi def link ExtraditeLogName String
+  hi def link ExtraditeLogTag Identifier
+  hi! link CursorLine           Visual
   " make the cursor less obvious. has no effect on xterm
-  hi! def link Cursor               Visual
+  hi! link Cursor               Visual
 endfunction
 
 function! s:ExtraditeDiffToggle() abort
-  if !exists('b:fugitive_simplediff_bufnr') || b:fugitive_simplediff_bufnr == -1
+  if !exists('b:extradite_simplediff_bufnr') || b:extradite_simplediff_bufnr == -1
     augroup extradite
       autocmd CursorMoved <buffer> call s:SimpleFileDiff(s:ExtraditePath('~1'), s:ExtraditePath())
       " vim seems to get confused if we jump around buffers during a CursorMoved event. Moving the cursor
@@ -184,8 +193,8 @@ function! s:ExtraditeDiffToggle() abort
       autocmd CursorHold <buffer>  normal! lh
     augroup END
   else
-    exe "bd" b:fugitive_simplediff_bufnr
-    unlet b:fugitive_simplediff_bufnr
+    exe "keepjumps bd" b:extradite_simplediff_bufnr
+    unlet b:extradite_simplediff_bufnr
     au! extradite
   endif
 endfunction
@@ -194,43 +203,47 @@ endfunction
 " information
 function! s:SimpleFileDiff(a,b) abort
   call s:SimpleDiff(a:a,a:b)
-  let win = bufwinnr(b:fugitive_simplediff_bufnr)
-  exe win.'wincmd w'
-  set modifiable
-    silent normal! gg5dd
-  set nomodifiable
-  wincmd p
+  let win = bufwinnr(b:extradite_simplediff_bufnr)
+  exe 'keepjumps '.win.'wincmd w'
+  setlocal modifiable
+    keepjumps silent normal! gg5dd
+  setlocal nomodifiable
+  keepjumps wincmd p
 endfunction
 
 " Does a git diff of commits a and b. Will create one simplediff-buffer that is
 " unique wrt the buffer that it is invoked from.
 function! s:SimpleDiff(a,b) abort
 
-  if !exists('b:fugitive_simplediff_bufnr') || b:fugitive_simplediff_bufnr == -1
+  if !exists('b:extradite_simplediff_bufnr') || b:extradite_simplediff_bufnr == -1
     belowright split
     enew!
+    command! -buffer -bang Extradite :execute s:Extradite(<bang>0)
+    nnoremap <buffer> <silent> q    :<C-U>call <SID>ExtraditeClose()<CR>
     let bufnr = bufnr('')
-    wincmd p
-    let b:fugitive_simplediff_bufnr = bufnr
+
+    keepjumps wincmd p
+    let b:extradite_simplediff_bufnr = bufnr
   endif
 
-  let win = bufwinnr(b:fugitive_simplediff_bufnr)
-  exe win.'wincmd w'
+  let win = bufwinnr(b:extradite_simplediff_bufnr)
+  exe 'keepjumps '.win.'wincmd w'
 
   " check if we have generated this diff already, to reduce unnecessary shell requests
   if exists('b:files') && b:files['a'] == a:a && b:files['b'] == a:b
-    wincmd p
+    keepjumps wincmd p
     return
   endif
 
-  set modifiable
+  setlocal modifiable
     silent! %delete _
     let diff = system('git diff '.a:a.' '.a:b)
     silent put = diff
   setlocal ft=diff buftype=nofile nomodifiable
-  " somehow this is necessary to prevent future buffers from having `nomodifiable`
-  autocmd BufDelete <buffer> set modifiable
+
   let b:files = { 'a': a:a, 'b': a:b }
-  wincmd p
+  keepjumps wincmd p
 
 endfunction
+
+" vim:set ft=vim ts=8 sw=2 sts=2 et
