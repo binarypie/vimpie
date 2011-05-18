@@ -137,6 +137,7 @@ nmap <C-K> <C-W><C-K>
 " Gui Stuff for macvim
 if has("gui_running")
     set guioptions=begmrt
+    set nohidden
 endif
 
 " Disable Arrow Remaps
