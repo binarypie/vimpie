@@ -119,7 +119,8 @@ if executable("ack")
 endif
 
 " Color scheme
-colorscheme vimtheme
+set background=dark
+colorscheme solarized
 
 " Numbers
 set number
