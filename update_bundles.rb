@@ -22,7 +22,6 @@ git_bundles = [
     "https://github.com/vim-scripts/taglist.vim.git",
     "https://github.com/scrooloose/syntastic.git",
     "https://github.com/briangershon/html5.vim.git",
-    "https://github.com/fmoralesc/Tumble.git",
     "https://github.com/vim-scripts/greplace.vim.git",
     "https://github.com/gregsexton/gitv.git",
     "https://github.com/msanders/cocoa.vim.git"
