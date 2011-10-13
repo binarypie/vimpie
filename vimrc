@@ -122,6 +122,9 @@ endif
 set background=dark
 colorscheme solarized
 
+" Font
+set guifont=Monaco:h14.00
+
 " Numbers
 set number
 set numberwidth=5
@@ -151,7 +154,7 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
-nnoremap k gk" 
+nnoremap k gk"
 
 " Invisibles
 set list
@@ -161,6 +164,3 @@ set listchars=tab:▸\ ,eol:¬,trail:·
 set noerrorbells
 set visualbell
 set t_vb=
-
-" Font
-set guifont=Monaco:h12.00
