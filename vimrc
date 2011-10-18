@@ -71,10 +71,10 @@ set laststatus=2
 " , is the leader character
 let mapleader = ","
 
-" Leader shortcuts for CommandT
-let g:CommandTMaxHeight = 15
-noremap <leader>j :CommandT<cr>
-noremap <leader>y :CommandTFlush<cr>
+" Leader shortcuts for fuzzy finder 
+noremap <leader>f :FufFileWithCurrentBufferDir<cr>
+noremap <leader>b :FufBuffer<cr>
+noremap <leader>t :FufTaggedFile<cr>
 
 " Hide search highlighting
 map <Leader>l :set invhls <CR>
