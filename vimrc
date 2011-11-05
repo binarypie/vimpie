@@ -71,11 +71,6 @@ set laststatus=2
 " , is the leader character
 let mapleader = ","
 
-" Leader shortcuts for fuzzy finder 
-noremap <leader>f :FufFileWithCurrentBufferDir<cr>
-noremap <leader>b :FufBuffer<cr>
-noremap <leader>t :FufTaggedFile<cr>
-
 " Hide search highlighting
 map <Leader>l :set invhls <CR>
 

@@ -10,8 +10,6 @@ git_bundles = [
     "https://github.com/tpope/vim-repeat.git",
     "https://github.com/tpope/vim-surround.git",
     "https://github.com/nathanaelkane/vim-indent-guides.git",
-    "https://github.com/vim-scripts/L9.git",
-    "https://github.com/vim-scripts/FuzzyFinder.git",
     "https://github.com/tsaleh/vim-tcomment.git",
     "https://github.com/altercation/vim-colors-solarized.git",
     "https://github.com/pangloss/vim-javascript.git",
@@ -25,7 +23,8 @@ git_bundles = [
     "https://github.com/briangershon/html5.vim.git",
     "https://github.com/vim-scripts/greplace.vim.git",
     "https://github.com/gregsexton/gitv.git",
-    "https://github.com/msanders/cocoa.vim.git"
+    "https://github.com/msanders/cocoa.vim.git",
+    "https://github.com/kien/ctrlp.vim.git"
 ]
 
 require 'fileutils'
