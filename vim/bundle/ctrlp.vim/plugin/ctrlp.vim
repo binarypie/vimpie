@@ -1,34 +1,52 @@
 " =============================================================================
 " File:          plugin/ctrlp.vim
-" Description:   Full path fuzzy file, buffer and MRU file finder for Vim.
+" Description:   Fuzzy file, buffer, mru and tag finder.
 " Author:        Kien Nguyen <github.com/kien>
-" License:       MIT
 " =============================================================================
 " GetLatestVimScripts: 3736 1 :AutoInstall: ctrlp.zip
 
-if ( exists('g:loaded_ctrlp') && g:loaded_ctrlp ) || v:version < '700' || &cp
+if ( exists('g:loaded_ctrlp') && g:loaded_ctrlp ) || v:version < 700 || &cp
 	fini
-endif
-let g:loaded_ctrlp = 1
+en
+let [g:loaded_ctrlp, g:ctrlp_lines, g:ctrlp_allfiles] = [1, [], []]
 
-if !exists('g:ctrlp_map')       | let g:ctrlp_map = '<c-p>' | endif
-if !exists('g:ctrlp_mru_files') | let g:ctrlp_mru_files = 1 | endif
+if !exists('g:ctrlp_map') | let g:ctrlp_map = '<c-p>' | en
+if !exists('g:ctrlp_cmd') | let g:ctrlp_cmd = 'CtrlP' | en
 
-com! -nargs=? -complete=custom,ctrlp#compl CtrlP cal ctrlp#init(0, <q-args>)
+com! -n=? -com=custom,ctrlp#cpl CtrlP cal ctrlp#init(0, <q-args>)
 
-com! CtrlPBuffer         cal ctrlp#init(1)
-com! CtrlPMRUFiles       cal ctrlp#init(2)
-com! ClearCtrlPCache     cal ctrlp#clearcache()
-com! ClearAllCtrlPCaches cal ctrlp#clearallcaches()
+com! CtrlPBuffer   cal ctrlp#init(1)
+com! CtrlPMRUFiles cal ctrlp#init(2)
+
+com! ClearCtrlPCache     cal ctrlp#clr()
+com! ClearAllCtrlPCaches cal ctrlp#clra()
+com! ResetCtrlP          cal ctrlp#reset()
 
 com! CtrlPCurWD   cal ctrlp#init(0, 0)
 com! CtrlPCurFile cal ctrlp#init(0, 1)
 com! CtrlPRoot    cal ctrlp#init(0, 2)
 
-com! ResetCtrlP cal ctrlp#reset()
+exe 'nn <silent>' g:ctrlp_map ':<c-u>'.g:ctrlp_cmd.'<cr>'
 
-exe 'nn <silent>' g:ctrlp_map ':<c-u>CtrlP<cr>'
+cal ctrlp#mrufiles#init()
 
-if g:ctrlp_mru_files | cal ctrlp#mrufiles#init() | endif
+if !exists('g:ctrlp_extensions') | fini | en
 
-let [g:ctrlp_lines, g:ctrlp_allfiles] = [[], []]
+if index(g:ctrlp_extensions, 'tag') >= 0
+	let g:ctrlp_alltags = [] | com! CtrlPTag cal ctrlp#init(ctrlp#tag#id())
+en
+
+if index(g:ctrlp_extensions, 'quickfix') >= 0
+	com! CtrlPQuickfix cal ctrlp#init(ctrlp#quickfix#id())
+en
+
+if index(g:ctrlp_extensions, 'dir') >= 0
+	let g:ctrlp_alldirs = []
+	com! -n=? -com=custom,ctrlp#cpl CtrlPDir
+		\ cal ctrlp#init(ctrlp#dir#id(), <q-args>)
+en
+
+if index(g:ctrlp_extensions, 'buffertag') >= 0
+	let g:ctrlp_buftags = {}
+	com! CtrlPBufTag cal ctrlp#init(ctrlp#buffertag#id())
+en
