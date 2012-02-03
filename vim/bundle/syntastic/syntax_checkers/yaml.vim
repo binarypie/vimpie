@@ -1,5 +1,5 @@
 "============================================================================
-"File:        sass.vim
+"File:        yaml.vim
 "Description: Syntax checking plugin for syntastic.vim
 "Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
@@ -8,28 +8,23 @@
 "             Want To Public License, Version 2, as published by Sam Hocevar.
 "             See http://sam.zoy.org/wtfpl/COPYING for more details.
 "
+"
+"Installation: $ npm install -g js-yaml.bin
+"
 "============================================================================
-if exists("loaded_sass_syntax_checker")
+if exists("loaded_yaml_syntax_checker")
     finish
 endif
-let loaded_sass_syntax_checker = 1
+let loaded_yaml_syntax_checker = 1
 
-"bail if the user doesnt have the sass binary installed
-if !executable("sass")
+if !executable("js-yaml")
     finish
 endif
 
-"use compass imports if available
-let s:imports = ""
-if executable("compass")
-    let s:imports = "--compass"
-endif
-
-function! SyntaxCheckers_sass_GetLocList()
-    let makeprg='sass '.s:imports.' --check '.shellescape(expand('%'))
-    let errorformat = '%ESyntax %trror:%m,%C        on line %l of %f,%Z%.%#'
-    let errorformat .= ',%Wwarning on line %l:,%Z%m,Syntax %trror on line %l: %m'
-    let loclist = SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
-
-    return loclist
+function! SyntaxCheckers_yaml_GetLocList()
+    let makeprg='js-yaml --compact ' . shellescape(expand('%'))
+    let errorformat='Error on line %l\, col %c:%m,%-G%.%#'
+    return SyntasticMake({ 'makeprg': makeprg,
+                         \ 'errorformat': errorformat,
+                         \ 'defaults': {'bufnr': bufnr("")} })
 endfunction

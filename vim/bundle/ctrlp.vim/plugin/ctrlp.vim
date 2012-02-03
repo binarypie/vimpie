@@ -13,7 +13,7 @@ let [g:loaded_ctrlp, g:ctrlp_lines, g:ctrlp_allfiles] = [1, [], []]
 if !exists('g:ctrlp_map') | let g:ctrlp_map = '<c-p>' | en
 if !exists('g:ctrlp_cmd') | let g:ctrlp_cmd = 'CtrlP' | en
 
-com! -n=? -com=custom,ctrlp#cpl CtrlP cal ctrlp#init(0, <q-args>)
+com! -n=? -com=dir CtrlP cal ctrlp#init(0, <q-args>)
 
 com! CtrlPBuffer   cal ctrlp#init(1)
 com! CtrlPMRUFiles cal ctrlp#init(2)
@@ -26,27 +26,39 @@ com! CtrlPCurWD   cal ctrlp#init(0, 0)
 com! CtrlPCurFile cal ctrlp#init(0, 1)
 com! CtrlPRoot    cal ctrlp#init(0, 2)
 
-exe 'nn <silent>' g:ctrlp_map ':<c-u>'.g:ctrlp_cmd.'<cr>'
+if g:ctrlp_map != ''
+	exe 'nn <silent>' g:ctrlp_map ':<c-u>'.g:ctrlp_cmd.'<cr>'
+en
 
 cal ctrlp#mrufiles#init()
 
 if !exists('g:ctrlp_extensions') | fini | en
 
-if index(g:ctrlp_extensions, 'tag') >= 0
-	let g:ctrlp_alltags = [] | com! CtrlPTag cal ctrlp#init(ctrlp#tag#id())
+let s:ext = g:ctrlp_extensions
+
+if index(s:ext, 'tag') >= 0
+	let g:ctrlp_alltags = []
+	com! CtrlPTag cal ctrlp#init(ctrlp#tag#id())
 en
 
-if index(g:ctrlp_extensions, 'quickfix') >= 0
+if index(s:ext, 'quickfix') >= 0
 	com! CtrlPQuickfix cal ctrlp#init(ctrlp#quickfix#id())
 en
 
-if index(g:ctrlp_extensions, 'dir') >= 0
+if index(s:ext, 'dir') >= 0
 	let g:ctrlp_alldirs = []
-	com! -n=? -com=custom,ctrlp#cpl CtrlPDir
-		\ cal ctrlp#init(ctrlp#dir#id(), <q-args>)
+	com! -n=? -com=dir CtrlPDir cal ctrlp#init(ctrlp#dir#id(), <q-args>)
 en
 
-if index(g:ctrlp_extensions, 'buffertag') >= 0
+if index(s:ext, 'buffertag') >= 0
 	let g:ctrlp_buftags = {}
-	com! CtrlPBufTag cal ctrlp#init(ctrlp#buffertag#id())
+	com! -n=? -com=buffer CtrlPBufTag
+		\ cal ctrlp#init(ctrlp#buffertag#cmd(0, <q-args>))
+	com! CtrlPBufTagAll cal ctrlp#init(ctrlp#buffertag#cmd(1))
 en
+
+if index(s:ext, 'rtscript') >= 0
+	com! CtrlPRTS cal ctrlp#init(ctrlp#rtscript#id())
+en
+
+unl s:ext
