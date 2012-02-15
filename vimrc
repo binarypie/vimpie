@@ -56,13 +56,13 @@ else
 endif
 
 " Softtabs, 4 spaces
-set tabstop=4
-set shiftwidth=4
+set softtabstop=2 tabstop=2 shiftwidth=2
 set expandtab
 set smartindent
+set copyindent
 
 " Ident Lines
-set ts=4 sw=4 et
+set ts=2 sw=2 et
 let g:indent_guides_guide_size = 1
 
 " Always display the status line
@@ -114,9 +114,8 @@ if executable("ack")
 endif
 
 " Color scheme
+colorscheme molokai
 set background=dark
-let g:solarized_termtrans=1
-colorscheme solarized
 
 " Font
 set guifont=Monaco:h14.00
@@ -126,8 +125,9 @@ set number
 set numberwidth=5
 
 " Tab completion options
+set wildmode=longest,list
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=*.o,*.obj,.git,*.pyc,*.swp,*.bak
 set complete=.,t
 
 " Window navigation
@@ -154,7 +154,7 @@ nnoremap k gk"
 
 " Invisibles
 set list
-set listchars=tab:▸\ ,eol:¬,trail:·
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " Disable Beeping
 set noerrorbells
