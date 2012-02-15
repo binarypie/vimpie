@@ -11,7 +11,7 @@ git_bundles = [
     "https://github.com/tpope/vim-surround.git",
     "https://github.com/nathanaelkane/vim-indent-guides.git",
     "https://github.com/tsaleh/vim-tcomment.git",
-    "https://github.com/tomasr/molokai",
+    "https://github.com/binarypie/blueberrypie.git",
     "https://github.com/pangloss/vim-javascript.git",
     "https://github.com/vim-scripts/python.vim--Vasiliev.git",
     "https://github.com/paulyg/Vim-PHP-Stuff.git",

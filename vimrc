@@ -114,7 +114,7 @@ if executable("ack")
 endif
 
 " Color scheme
-colorscheme molokai
+colorscheme blueberrypie
 set background=dark
 
 " Font
