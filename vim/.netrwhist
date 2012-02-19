@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/charles/WebtrendsApps/transponder/public/js/frienddialog/frienddialog.js'
-let g:netrw_dirhist_2='/Users/charles/WebtrendsApps/transponder/application'
-let g:netrw_dirhist_3='/Users/charles/WebtrendsApps/transponder'
-let g:netrw_dirhist_4='/Users/charles/WebtrendsApps/devhooks'
-let g:netrw_dirhist_5='/Users/binarypie/Projects/binarypie/binarypie.github.com'
-let g:netrw_dirhist_6='/Users/charles/WebtrendsApps/aws'
-let g:netrw_dirhist_7='/Users/binarypie/Projects/pricerie/thepricerie/.bundle'
-let g:netrw_dirhist_8='/Users/binarypie/Desktop/pietin.visc'
-let g:netrw_dirhist_9='/Users/charles/WebtrendsApps/tools/build'
+let g:netrw_dirhist_cnt =0
