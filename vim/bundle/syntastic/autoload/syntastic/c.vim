@@ -38,6 +38,34 @@ function! s:Init()
     call s:RegHandler('php\.h', 'syntastic#c#CheckPhp', [])
 endfunction
 
+" default include directories
+let s:default_includes = [ '.', '..', 'include', 'includes',
+            \ '../include', '../includes' ]
+
+" uniquify the input list
+function! s:Unique(list)
+    let l = []
+    for elem in a:list
+        if index(l, elem) == -1
+            let l = add(l, elem)
+        endif
+    endfor
+    return l
+endfunction
+
+" get the gcc include directory argument depending on the default
+" includes and the optional user-defined 'g:syntastic_c_include_dirs'
+function! syntastic#c#GetIncludeDirs(filetype)
+    let include_dirs = copy(s:default_includes)
+
+    if exists('g:syntastic_'.a:filetype.'_include_dirs')
+        call extend(include_dirs, g:syntastic_{a:filetype}_include_dirs)
+    endif
+
+    return join(map(s:Unique(include_dirs), '"-I" . v:val'), ' ')
+endfunction
+
+
 " search the first 100 lines for include statements that are
 " given in the handlers dictionary
 function! syntastic#c#SearchHeaders()

@@ -56,7 +56,7 @@ else
 endif
 
 " Softtabs, 4 spaces
-set softtabstop=2 tabstop=2 shiftwidth=2
+set softtabstop=4 tabstop=4 shiftwidth=4
 set expandtab
 set smartindent
 set copyindent

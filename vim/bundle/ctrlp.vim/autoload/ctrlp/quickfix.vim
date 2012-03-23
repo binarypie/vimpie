@@ -30,10 +30,12 @@ endf
 " Public {{{1
 fu! ctrlp#quickfix#init()
 	let g:ctrlp_nolimit = 1
-	if !hlexists('CtrlPqfLineCol')
-		hi link CtrlPqfLineCol Search
+	if has('syntax') && exists('g:syntax_on')
+		if !hlexists('CtrlPqfLineCol')
+			hi link CtrlPqfLineCol Search
+		en
+		sy match CtrlPqfLineCol '|\zs\d\+:\d\+\ze|'
 	en
-	sy match CtrlPqfLineCol '|\zs\d\+:\d\+\ze|'
 	retu map(getqflist(), 's:lineout(v:val)')
 endf
 
@@ -48,6 +50,7 @@ fu! ctrlp#quickfix#accept(mode, str)
 	exe cmd ctrlp#fnesc(filpath)
 	cal cursor(items[2], items[3])
 	sil! norm! zvzz
+	cal ctrlp#setlcdir()
 endf
 
 fu! ctrlp#quickfix#id()
