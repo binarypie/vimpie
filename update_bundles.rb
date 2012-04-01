@@ -23,10 +23,10 @@ git_bundles = [
     "https://github.com/briangershon/html5.vim.git",
     "https://github.com/vim-scripts/greplace.vim.git",
     "https://github.com/gregsexton/gitv.git",
-    "https://github.com/msanders/cocoa.vim.git",
     "https://github.com/kien/ctrlp.vim.git",
     "https://github.com/paulrouget/flagit.git",
-    "https://github.com/Lokaltog/vim-powerline.git"
+    "https://github.com/Lokaltog/vim-powerline.git",
+    "https://github.com/beyondwords/vim-twig.git"
 ]
 
 require 'fileutils'

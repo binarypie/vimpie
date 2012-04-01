@@ -62,7 +62,7 @@ set smartindent
 set copyindent
 
 " Ident Lines
-set ts=2 sw=2 et
+set ts=4 sw=4 et
 let g:indent_guides_guide_size = 1
 
 " Always display the status line
