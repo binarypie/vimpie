@@ -1,2 +1,4 @@
 *.swp
+*.swo
 *.git
+.vim/bundle
