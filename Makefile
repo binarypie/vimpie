@@ -13,4 +13,4 @@ symlinks:
 	ln -s ${PWD}/.vimrc ~/.vimrc
 
 bundles:
-	vim +BundleInstall +qall
+	vim +BundleInstall! +qall
