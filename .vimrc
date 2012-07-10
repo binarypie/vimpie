@@ -14,15 +14,12 @@ Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-repeat.git'
 Bundle 'tpope/vim-surround.git'
 Bundle 'nathanaelkane/vim-indent-guides.git'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'binarypie/blueberrypie-vim'
+Bundle 'scrooloose/nerdcommenter.git'
+Bundle 'binarypie/blueberrypie-vim.git'
 Bundle 'pangloss/vim-javascript.git'
-Bundle 'vim-scripts/python.vim--Vasiliev.git'
 Bundle 'paulyg/Vim-PHP-Stuff.git'
-Bundle 'vim-scripts/Gist.vim.git'
+Bundle 'mattn/gist-vim.git'
 Bundle 'fsouza/go.vim.git'
-Bundle 'ervandew/supertab.git'
-Bundle 'vim-scripts/taglist.vim.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'briangershon/html5.vim.git'
 Bundle 'vim-scripts/greplace.vim.git'
@@ -115,9 +112,6 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-" Maps autocomplete to tab
-imap <Tab> <C-P>
-
 " Duplicate a selection
 " Visual mode: D
 vmap D y'>p
@@ -153,12 +147,6 @@ set guifont=Monaco:h14.00
 set number
 set numberwidth=5
 
-" Tab completion options
-set wildmode=longest,list
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.pyc,*.swp,*.bak
-set complete=.,t
-
 " Window navigation
 nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
@@ -189,3 +177,11 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set noerrorbells
 set visualbell
 set t_vb=
+
+" Ignores
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store  " MacOSX/Linux
+
+" Ctrl P
+let g:ctrlp_regexp = 1
+let g:ctrlp_by_filename = 1
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|\.sass-cache'
