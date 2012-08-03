@@ -19,7 +19,6 @@ Bundle 'binarypie/blueberrypie-vim.git'
 Bundle 'pangloss/vim-javascript.git'
 Bundle 'paulyg/Vim-PHP-Stuff.git'
 Bundle 'mattn/gist-vim.git'
-Bundle 'fsouza/go.vim.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'briangershon/html5.vim.git'
 Bundle 'vim-scripts/greplace.vim.git'
@@ -49,6 +48,9 @@ set hidden
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
+
+" Google GO
+set rtp+=$GOROOT/misc/vim
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
