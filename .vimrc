@@ -1,6 +1,10 @@
 set nocompatible
 filetype off
 
+" Google GO
+set rtp+=$GOROOT/misc/vim
+
+" Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -49,9 +53,6 @@ set hidden
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" Google GO
-set rtp+=$GOROOT/misc/vim
-
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
@@ -91,6 +92,7 @@ set copyindent
 
 " Ident Lines
 set ts=4 sw=4 et
+let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
 " Always display the status line
@@ -187,3 +189,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store  " MacOSX/Linux
 let g:ctrlp_regexp = 1
 let g:ctrlp_by_filename = 1
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|\.sass-cache'
+
+" FlagIt
+let g:Fi_OnlyText = 1
+let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
+                 \ "function" : ["", "+ ", 0, "texthl=Comment"],
+                 \ "warning" : ["", "! ", 0, "texthl=StatusLine linehl=StatusLine"],
+                 \ "error" : ["", "XX", "true", "texthl=ErrorMsg linehl=ErrorMsg"],
+                 \ "step" : ["", "..", "true", ""] }
