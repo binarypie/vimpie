@@ -181,9 +181,10 @@ set visualbell
 set t_vb=
 
 " Ignores
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store  " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store,*.cache     " MacOSX/Linux
 
 " Ctrl P
 let g:ctrlp_regexp = 1
-let g:ctrlp_by_filename = 1
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|\.sass-cache'
+let g:ctrlp_by_filename = 0
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|\.sass-cache|app/cache)$'
+let g:ctrlp_max_height = 20
