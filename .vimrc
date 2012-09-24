@@ -142,7 +142,12 @@ endif
 
 " Color scheme
 set t_Co=256
-colorscheme blueberrypie
+" Prevent an error on vundle
+try
+    colorscheme blueberrypie
+catch /^Vim\%((\a\+)\)\=:E185/
+    " default
+endtry
 
 " Font
 set guifont=Monaco:h14.00
