@@ -1,4 +1,6 @@
-*.swp
-*.swo
-*.git
-.vim/bundle
+# OS X
+*.DS_Store
+
+# Vim
+**.sw*
+*~

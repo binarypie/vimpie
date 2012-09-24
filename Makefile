@@ -1,4 +1,4 @@
-install: clean vundle symlinks bundles
+install: clean symlinks vundle bundles
 
 clean:
 	rm -rf ${PWD}/.vim/bundle/*
