@@ -166,6 +166,11 @@ if has("gui_running")
     set nohidden
 endif
 
+" Pastemode
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
 " Disable Arrow Remaps
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -195,6 +200,7 @@ let g:ctrlp_regexp = 1
 let g:ctrlp_by_filename = 0
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|\.sass-cache|app/cache)$'
 let g:ctrlp_max_height = 20
+let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'] }
 
 " FlagIt
 let g:Fi_OnlyText = 1
@@ -203,3 +209,6 @@ let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
                  \ "warning" : ["", "! ", 0, "texthl=StatusLine linehl=StatusLine"],
                  \ "error" : ["", "XX", "true", "texthl=ErrorMsg linehl=ErrorMsg"],
                  \ "step" : ["", "..", "true", ""] }
+
+" Syntastic
+let g:syntastic_phpcs_conf = "--standard=Symfony2"
