@@ -212,3 +212,31 @@ let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
 
 " Syntastic
 let g:syntastic_phpcs_conf = "--standard=Symfony2"
+
+" Tabs
+if exists("+showtabline")
+    functi! MyTabLine()
+    let s = ''
+    let t = tabpagenr()
+    let i = 1
+    while i <= tabpagenr('$')
+        let buflist = tabpagebuflist(i)
+        let winnr = tabpagewinnr(i)
+        let s .= '%' . i . 'T'
+        let s .= (i == t ? '%1*' : '%2*')
+        let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+        let file = bufname(buflist[winnr - 1])
+        let file = fnamemodify(file, ':p:t')
+        let file = (file == '') ? '[No Name]' : file
+        let s .= ' ' . file . ' '
+        let s .= winnr
+        let s .= (getbufvar(buflist[winnr - 1], '&modified') ? '+ ' : ' ')
+        let i = i + 1
+        endwhile
+        let s .= '%T%#TabLineFill#%='
+        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+        return s
+    endfunction
+    set stal=2
+    set tabline=%!MyTabLine()
+endif
