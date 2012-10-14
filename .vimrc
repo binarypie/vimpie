@@ -10,21 +10,12 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle.git'
 Bundle 'godlygeek/tabular.git'
-Bundle 'msanders/snipmate.vim.git'
-Bundle 'tpope/vim-fugitive.git'
-Bundle 'int3/vim-extradite.git'
-Bundle 'tpope/vim-git.git'
 Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-repeat.git'
 Bundle 'tpope/vim-surround.git'
 Bundle 'nathanaelkane/vim-indent-guides.git'
-Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'binarypie/blueberrypie-vim.git'
-Bundle 'pangloss/vim-javascript.git'
-Bundle 'paulyg/Vim-PHP-Stuff.git'
-Bundle 'mattn/gist-vim.git'
 Bundle 'scrooloose/syntastic.git'
-Bundle 'briangershon/html5.vim.git'
 Bundle 'vim-scripts/greplace.vim.git'
 Bundle 'gregsexton/gitv.git'
 Bundle 'kien/ctrlp.vim.git'
@@ -167,8 +158,8 @@ if has("gui_running")
 endif
 
 " Pastemode
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
+nnoremap <Leader>v :set invpaste paste?<CR>
+set pastetoggle=<Leader>v
 set showmode
 
 " Disable Arrow Remaps
