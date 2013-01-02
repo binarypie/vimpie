@@ -231,3 +231,6 @@ if exists("+showtabline")
     set stal=2
     set tabline=%!MyTabLine()
 endif
+
+" Single pastebin for tmux
+set clipboard=unnamed
