@@ -191,6 +191,8 @@ let g:ctrlp_by_filename = 0
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|\.sass-cache|app/cache)$'
 let g:ctrlp_max_height = 20
 let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': [], 'AcceptSelection("t")': ['<cr>', '<c-m>'] }
+let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_lazy_update = 1
 
 " FlagIt
 let g:Fi_OnlyText = 1
