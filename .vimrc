@@ -20,7 +20,8 @@ Bundle 'vim-scripts/greplace.vim.git'
 Bundle 'gregsexton/gitv.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'paulrouget/flagit.git'
-Bundle 'beyondwords/vim-twig.git'
+Bundle 'evidens/vim-twig.git'
+Bundle 'maciakl/vim-neatstatus.git'
 
 filetype plugin indent on
 
