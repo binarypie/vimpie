@@ -21,7 +21,7 @@ Bundle 'gregsexton/gitv.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'paulrouget/flagit.git'
 Bundle 'evidens/vim-twig.git'
-Bundle 'maciakl/vim-neatstatus.git'
+Bundle 'itchyny/lightline.vim'
 
 filetype plugin indent on
 
