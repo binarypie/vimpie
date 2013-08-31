@@ -14,3 +14,8 @@ symlinks:
 
 bundles:
 	vim +BundleInstall! +qall
+
+bundles-clean:
+	rm -rf ${PWD}/.vim/bundle/*
+	make vundle
+	make bundles
