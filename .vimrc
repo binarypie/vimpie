@@ -14,14 +14,15 @@ Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-repeat.git'
 Bundle 'tpope/vim-surround.git'
 Bundle 'nathanaelkane/vim-indent-guides.git'
-Bundle 'binarypie/blueberrypie-vim.git'
+Bundle 'binarypie/vim-termcolor.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'vim-scripts/greplace.vim.git'
 Bundle 'gregsexton/gitv.git'
 Bundle 'kien/ctrlp.vim.git'
 Bundle 'paulrouget/flagit.git'
 Bundle 'evidens/vim-twig.git'
-Bundle 'itchyny/lightline.vim'
+Bundle 'itchyny/lightline.vim.git'
+Bundle 'groenewege/vim-less.git'
 
 filetype plugin indent on
 
@@ -135,7 +136,7 @@ endif
 set t_Co=256
 " Prevent an error on vundle
 try
-    colorscheme blueberrypie
+    colorscheme termcolor
 catch /^Vim\%((\a\+)\)\=:E185/
     " default
 endtry
@@ -253,6 +254,11 @@ if exists("+showtabline")
     set showtabline=1
     highlight link TabNum Special
 endif
+
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'default',
+      \ }
 
 " Single pastebin for tmux
 set clipboard=unnamed
