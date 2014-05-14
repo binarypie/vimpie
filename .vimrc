@@ -122,11 +122,6 @@ imap <C-F> <C-R>=expand("%")<CR>
 " overwriting the default register
 vmap P p :call setreg('"', getreg('0')) <CR>
 
-" Local config
-if filereadable(".vimrc.local")
-  source .vimrc.local
-endif
-
 " Use Ack instead of Grep when available
 if executable("ack")
   set grepprg=ack\ -H\ --nogroup\ --nocolor
@@ -140,9 +135,6 @@ try
 catch /^Vim\%((\a\+)\)\=:E185/
     " default
 endtry
-
-" Font
-set guifont=Monaco:h14.00
 
 " Numbers
 set number
@@ -185,7 +177,17 @@ set visualbell
 set t_vb=
 
 " Ignores
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store,*.cache     " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store,*.cache,*.class,*.jar
+
+" Paste
+set clipboard=unnamedplus
+
+" Rendering
+set tf
+set nolazyredraw
+
+" Spelling
+set spelllang=en
 
 " Ctrl P
 let g:ctrlp_regexp = 1
@@ -207,6 +209,8 @@ let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
 
 " Syntastic
 let g:syntastic_phpcs_conf = "--standard=Symfony2"
+let g:syntastic_java_checkers = ['checkstyle', 'javac'] 
+let g:syntastic_java_javac_config_file_enabled = 1
 
 " Tabs
 " Rename tabs to show tab number.
@@ -257,8 +261,10 @@ endif
 
 " Lightline
 let g:lightline = {
-      \ 'colorscheme': 'default',
-      \ }
+    \ 'colorscheme': 'Tomorrow_Night_Eighties',
+\ }
 
-" Single pastebin for tmux
-set clipboard=unnamed
+" Local Config
+if filereadable(glob('./.local.vimrc'))
+    so .local.vimrc
+endif
