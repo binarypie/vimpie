@@ -9,20 +9,21 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle.git'
+Bundle 'binarypie/vim-termcolor.git'
+Bundle 'evidens/vim-twig.git'
 Bundle 'godlygeek/tabular.git'
+Bundle 'gregsexton/gitv.git'
+Bundle 'groenewege/vim-less.git'
+Bundle 'itchyny/lightline.vim.git'
+Bundle 'kien/ctrlp.vim.git'
+Bundle 'nathanaelkane/vim-indent-guides.git'
+Bundle 'paulrouget/flagit.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'tpope/vim-fugitive.git'
 Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-repeat.git'
 Bundle 'tpope/vim-surround.git'
-Bundle 'nathanaelkane/vim-indent-guides.git'
-Bundle 'binarypie/vim-termcolor.git'
-Bundle 'scrooloose/syntastic.git'
 Bundle 'vim-scripts/greplace.vim.git'
-Bundle 'gregsexton/gitv.git'
-Bundle 'kien/ctrlp.vim.git'
-Bundle 'paulrouget/flagit.git'
-Bundle 'evidens/vim-twig.git'
-Bundle 'itchyny/lightline.vim.git'
-Bundle 'groenewege/vim-less.git'
 
 filetype plugin indent on
 
@@ -141,8 +142,10 @@ set number
 set numberwidth=5
 
 " Window navigation
-nmap <C-J> <C-W><C-J>
-nmap <C-K> <C-W><C-K>
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
 
 " Gui Stuff for macvim
 if has("gui_running")
@@ -183,8 +186,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store,*.cache,*.class,*.jar
 set clipboard=unnamedplus
 
 " Rendering
-set tf
-set nolazyredraw
+" set tf
+" set nolazyredraw
 
 " Spelling
 set spelllang=en
@@ -210,7 +213,7 @@ let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
 " Syntastic
 let g:syntastic_phpcs_conf = "--standard=Symfony2"
 let g:syntastic_java_checkers = ['checkstyle', 'javac'] 
-let g:syntastic_java_javac_config_file_enabled = 1
+let g:syntastic_aggregate_errors = 1
 
 " Tabs
 " Rename tabs to show tab number.
