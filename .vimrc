@@ -264,8 +264,13 @@ endif
 
 " Lightline
 let g:lightline = {
-    \ 'colorscheme': 'Tomorrow_Night_Eighties',
+    \ 'colorscheme': 'solarized_dark',
 \ }
+
+" Ignore whitespace on diff
+if &diff
+    set diffopt+=iwhite
+endif
 
 " Local Config
 if filereadable(glob('./.local.vimrc'))
