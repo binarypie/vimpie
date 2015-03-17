@@ -4,3 +4,6 @@
 # Vim
 **.sw*
 *~
+
+# Eh
+.netrwhist

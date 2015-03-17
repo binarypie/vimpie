@@ -183,11 +183,12 @@ set t_vb=
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store,*.cache,*.class,*.jar
 
 " Paste
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Rendering
-" set tf
-" set nolazyredraw
+set tf
+set nolazyredraw
 
 " Spelling
 set spelllang=en
