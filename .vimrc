@@ -1,31 +1,30 @@
 set nocompatible
 filetype off
 
-" Google GO
-set rtp+=$GOROOT/misc/vim
-
 " Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Plugin 'gmarik/vundle.git'
-Plugin 'binarypie/vim-termcolor.git'
-Plugin 'evidens/vim-twig.git'
-Plugin 'godlygeek/tabular.git'
-Plugin 'gregsexton/gitv.git'
-Plugin 'groenewege/vim-less.git'
-Plugin 'itchyny/lightline.vim.git'
-Plugin 'kien/ctrlp.vim.git'
-Plugin 'nathanaelkane/vim-indent-guides.git'
-Plugin 'paulrouget/flagit.git'
-Plugin 'scrooloose/syntastic.git'
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'tpope/vim-markdown.git'
-Plugin 'tpope/vim-repeat.git'
-Plugin 'tpope/vim-surround.git'
-Plugin 'vim-scripts/greplace.vim.git'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'binarypie/vim-termcolor'
+Plugin 'evidens/vim-twig'
+Plugin 'godlygeek/tabular'
+Plugin 'gregsexton/gitv'
+Plugin 'groenewege/vim-less'
+Plugin 'itchyny/lightline.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'paulrouget/flagit'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/greplace.vim'
 Plugin 'fatih/vim-go'
+Plugin 'tfnico/vim-gradle'
 
+call vundle#end()
 filetype plugin indent on
 
 " Encoding and Filetypes
@@ -213,6 +212,10 @@ let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
                  \ "step" : ["", "..", "true", ""] }
 
 " Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 let g:syntastic_phpcs_conf = "--standard=Symfony2"
 let g:syntastic_java_checkers = ['checkstyle', 'javac'] 
 let g:syntastic_aggregate_errors = 1
