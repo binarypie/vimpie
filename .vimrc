@@ -7,11 +7,13 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'binarypie/vim-termcolor'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'evidens/vim-twig'
 Plugin 'godlygeek/tabular'
 Plugin 'gregsexton/gitv'
 Plugin 'groenewege/vim-less'
-Plugin 'itchyny/lightline.vim'
+" Plugin 'itchyny/lightline.vim'
+Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'paulrouget/flagit'
@@ -132,7 +134,8 @@ endif
 set t_Co=256
 " Prevent an error on vundle
 try
-    colorscheme termcolor
+    " colorscheme termcolor
+    colorscheme PaperColor-Dark
 catch /^Vim\%((\a\+)\)\=:E185/
     " default
 endtry
@@ -268,9 +271,10 @@ if exists("+showtabline")
 endif
 
 " Lightline
-let g:lightline = {
-    \ 'colorscheme': 'solarized_dark',
-\ }
+" let g:lightline = {
+"     \ 'colorscheme': 'solarized_dark',
+" \ }
+let g:airline_theme='PaperColor'
 
 " Ignore whitespace on diff
 if &diff
