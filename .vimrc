@@ -7,14 +7,12 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'binarypie/vim-termcolor'
-Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'evidens/vim-twig'
 Plugin 'godlygeek/tabular'
 Plugin 'gregsexton/gitv'
 Plugin 'groenewege/vim-less'
-" Plugin 'itchyny/lightline.vim'
 Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'paulrouget/flagit'
 Plugin 'scrooloose/syntastic'
@@ -132,10 +130,10 @@ endif
 
 " Color scheme
 set t_Co=256
+let base16colorspace=256
 " Prevent an error on vundle
 try
-    " colorscheme termcolor
-    colorscheme PaperColor-Dark
+    colorscheme termcolor
 catch /^Vim\%((\a\+)\)\=:E185/
     " default
 endtry
@@ -222,6 +220,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_phpcs_conf = "--standard=Symfony2"
 let g:syntastic_java_checkers = ['checkstyle', 'javac'] 
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_html_tidy_exec = 'tidy5'
 
 " Tabs
 " Rename tabs to show tab number.
@@ -269,12 +268,6 @@ if exists("+showtabline")
     set showtabline=1
     highlight link TabNum Special
 endif
-
-" Lightline
-" let g:lightline = {
-"     \ 'colorscheme': 'solarized_dark',
-" \ }
-let g:airline_theme='PaperColor'
 
 " Ignore whitespace on diff
 if &diff
