@@ -24,6 +24,7 @@ Plugin 'vim-scripts/greplace.vim'
 Plugin 'fatih/vim-go'
 Plugin 'tfnico/vim-gradle'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 filetype plugin indent on
