@@ -204,6 +204,7 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 1
 
 nmap <leader>p :CtrlP<cr>
 nmap <leader>bb :CtrlPBuffer<cr>
