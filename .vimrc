@@ -1,11 +1,16 @@
 set nocompatible
 filetype off
 
+" Fish Shell
+if &shell =~# 'fish$'
+    set shell=zsh
+endif
+
 " Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'binarypie/vim-termcolor'
 Plugin 'evidens/vim-twig'
 Plugin 'godlygeek/tabular'
@@ -22,7 +27,6 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/greplace.vim'
 Plugin 'fatih/vim-go'
-Plugin 'tfnico/vim-gradle'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'editorconfig/editorconfig-vim'
 
@@ -228,6 +232,17 @@ let g:Fi_Flags = { "arrow" : ["", "> ", 1, "texthl=Title"],
                  \ "error" : ["", "XX", "true", "texthl=ErrorMsg linehl=ErrorMsg"],
                  \ "step" : ["", "..", "true", ""] }
 
+" Vim Go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
+
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -237,6 +252,10 @@ let g:syntastic_phpcs_conf = "--standard=Symfony2"
 let g:syntastic_java_checkers = ['checkstyle', 'javac'] 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_html_tidy_exec = 'tidy5'
+let g:syntastic_go_checkers = ['golint', 'go vet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+autocmd BufWritePost *.go GoMetaLint
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
