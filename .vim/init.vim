@@ -1,1 +1,1 @@
-/Users/cchristolini/.vimrc
+../.vimrc
