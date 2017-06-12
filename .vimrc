@@ -243,6 +243,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
+autocmd BufWritePost *.go GoMetaLinter
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -255,8 +256,6 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_go_checkers = ['golint', 'go vet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-autocmd BufWritePost *.go GoMetaLint
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
